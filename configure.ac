@@ -575,6 +575,9 @@ case "${target}" in
   avr-*-*)
     noconfigdirs="$noconfigdirs target-libquadmath"
     ;;
+  wasm-*-*)
+    noconfigdirs="$noconfigdirs target-libquadmath"
+    ;;
   # libquadmath is unused on AIX and libquadmath build process use of
   # LD_LIBRARY_PATH can break AIX bootstrap.
   powerpc-*-aix* | rs6000-*-aix*)
@@ -585,6 +588,10 @@ esac
 # Disable libssp for some systems.
 case "${target}" in
   avr-*-*)
+    # No hosted I/O support.
+    noconfigdirs="$noconfigdirs target-libssp"
+    ;;
+  wasm-*-*)
     # No hosted I/O support.
     noconfigdirs="$noconfigdirs target-libssp"
     ;;
@@ -715,6 +722,9 @@ case "${target}" in
   i[[3456789]]86-*-darwin*)
     ;;
   x86_64-*-darwin[[912]]*)
+    ;;
+  wasm*)
+    noconfigdirs="$noconfigdirs target-libffi"
     ;;
   *-*-darwin*)
     noconfigdirs="$noconfigdirs target-libffi"
@@ -881,6 +891,9 @@ esac
 
 # Disable newlib and libgloss for various target OSes.
 case "${target}" in
+  wasm*)
+    noconfigdirs="$noconfigdirs target-newlib target-libgloss"
+    ;;
   alpha*-dec-osf*)
     noconfigdirs="$noconfigdirs target-newlib target-libgloss"
     ;;
